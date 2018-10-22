@@ -1,0 +1,102 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Chat</title>
+
+		{% block css %}
+			<link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+			<link rel="stylesheet" href="{% static 'css/styleindex.css' %}">
+		{% endblock css %}
+
+	</head>
+	
+	<body>
+
+		{% comment "header" %}
+		    
+		    {% block header %}
+			
+				{% include "chats/_include/nabvar.html" %}
+
+			{% endblock header %}
+
+		{% endcomment %}
+
+
+		{% block content %}
+
+			<div class="container">
+				
+				<div class="row">
+					
+					<div class="input-field col s6 m6 l6">
+						
+						<input type="text" class="validate" id="room-name-input">
+						<label for="room-name-input">¿Qué sala de chat le gustaría ingresar?</label>
+
+					</div>
+
+				</div>
+
+				<div class="row">
+					
+					<a class="waves-effect waves-light btn" type="button" value="Enter" id="room-name-submit"><i class="material-icons right">send</i>Enviar<a/>
+
+					<!-- input id="room-name-submit" type="button" value="Enter"/ -->
+
+				</div>
+
+			</div>
+
+			<!--
+
+			¿Qué sala de chat le gustaría ingresar?<br/>
+		    <input id="room-name-input" type="text" size="100"/><br/>
+		    <input id="room-name-submit" type="button" value="Enter"/>
+    
+    		-->
+
+		{% endblock content %}
+
+
+		{% comment "footer" %}
+		    
+		    {% block footer %}
+
+				{% include "simulation/_include/footer.html" %}
+			    
+			{% endblock footer %}
+
+		{% endcomment %}
+				
+
+		{% block js %}
+
+			<script src="{% static 'jquery/jquery.min.js' %}"></script>
+		    <script src="{% static 'js/materialize.min.js' %}"></script>
+		    <script src="{% static 'jquery/scriptIndex.js' %}"></script>
+		  
+		{% endblock js %}
+
+		{% block scripts %}
+
+			<script>
+			    document.querySelector('#room-name-input').focus();
+
+			    document.querySelector('#room-name-input').onkeyup = function(e) {
+			        if (e.keyCode === 13) {  // enter, return
+			            document.querySelector('#room-name-submit').click();
+			        }
+			    };
+
+			    document.querySelector('#room-name-submit').onclick = function(e) {
+			        var roomName = document.querySelector('#room-name-input').value;
+			        window.location.pathname = '/chat/' + roomName;
+			    };
+			</script>
+		    
+		{% endblock scripts %}
+
+	</body>
+</html>
